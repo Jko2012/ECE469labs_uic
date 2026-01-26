@@ -1,5 +1,5 @@
 module blk_lvl_gp (
-	input logic Gik, Gkj, Pik, Pkj, Cin,
+	input logic Gkj, Gik, Pkj, Pik, Cin,
 	output logic Gij, Pij);
 
 	assign Gij = Gik | (Gkj & Pik);

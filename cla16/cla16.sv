@@ -1,7 +1,7 @@
 module cla16 (
-    input logic [0:15] Ai, Bi,
+    input logic [15:0] Ai, Bi,
     input logic Cin,
-    output logic [0:15] Sum,
+    output logic [15:0] Sum,
     output logic Cout);
 
     //bit level gp
@@ -60,7 +60,7 @@ module cla16 (
 
 
     //carry
-    logic [0:15] c;
+    logic [15:0] c;
 	 logic c16;
 
     assign c[0] = Cin;
