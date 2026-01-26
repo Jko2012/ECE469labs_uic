@@ -1,0 +1,10 @@
+
+*.bak
+*.rdb
+*.db_info
+*.qmsg
+*.hdb
+*.sci
+/cla16/ece469_labs
+/cla16/db
+/cla16/output_files
