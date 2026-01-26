@@ -61,37 +61,38 @@ module cla16 (
 
     //carry
     logic [0:15] c;
+	 logic c16;
 
     assign c[0] = Cin;
 
-    carry carry0(g0, p0, Cin, c[1]);
+    mod_carry carry0(g0, p0, Cin, c[1]);
 
-    carry carry1(g01, p01, Cin, c[2]);
-    carry carry2(g2, p2, c[2], c[3]);
+    mod_carry carry1(g01, p01, Cin, c[2]);
+    mod_carry carry2(g2, p2, c[2], c[3]);
 
-    carry carry3(g03, p03, Cin, c[4]);
+    mod_carry carry3(g03, p03, Cin, c[4]);
 
-    carry carry4(g4, p4, c[4], c[5]);
-    carry carry5(g45, p45, c[4], c[6]);
-    carry carry6(g6, p6, c[6], c[7]);
+    mod_carry carry4(g4, p4, c[4], c[5]);
+    mod_carry carry5(g45, p45, c[4], c[6]);
+    mod_carry carry6(g6, p6, c[6], c[7]);
 
-    carry carry7(g07, p07, Cin, c[8]);
+    mod_carry carry7(g07, p07, Cin, c[8]);
 
-    carry carry8(g8, p8, c[8], c[9]);
-    carry carry9(g89, p89, c[9], c[10]);
+    mod_carry carry8(g8, p8, c[8], c[9]);
+    mod_carry carry9(g89, p89, c[9], c[10]);
 
-    carry carry10(g10, p10, c[10], c[11]);
+    mod_carry carry10(g10, p10, c[10], c[11]);
 
-    carry carry11(g811, p811, c[10], c[12]);
-    carry carry12(g12, p12, c[12], c[13]);
-    carry carry13(g1213, p1213, c[12], c[14]);
-    carry carry14(g14, p14, c[14], c[15]);
-    carry carry15(g015, p015, Cin, c16);
+    mod_carry carry11(g811, p811, c[10], c[12]);
+    mod_carry carry12(g12, p12, c[12], c[13]);
+    mod_carry carry13(g1213, p1213, c[12], c[14]);
+    mod_carry carry14(g14, p14, c[14], c[15]);
+    mod_carry carry15(g015, p015, Cin, c16);
 
     assign Cout = c16;
 
     //sum
-    assign Sum = Ai ^ Bi ^ c
+    assign Sum = Ai ^ Bi ^ c;
 
 
 endmodule

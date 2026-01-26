@@ -1,4 +1,4 @@
-module carry (
+module mod_carry (
 	input logic Gi, Pi, Cin,
 	output logic Cout);
 
