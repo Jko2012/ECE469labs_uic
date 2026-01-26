@@ -1,9 +1,8 @@
-module 16-bit_cla (
+module cla16 (
     input logic [0:15] Ai, Bi,
     input logic Cin,
     output logic [0:15] Sum,
-    output logic Cout
-);
+    output logic Cout);
 
     //bit level gp
     logic g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15;
