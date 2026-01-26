@@ -8,3 +8,8 @@
 /cla16/ece469_labs
 /cla16/db
 /cla16/output_files
+*.mti
+*.mpf
+*.qpf
+*.qsf
+/cla16/incremental_db
