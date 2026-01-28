@@ -1,20 +1,18 @@
 module testbench();
-	logic [15:0] a, b, s;
-	logic cin, cout;
+	logic [15:0] a, b, s, d;
+	logic of_s, of_d, lessthan;
 	//instatiate device under test
-	cla16 dut(a, b, cin, s, cout);
+	signed_arth dut(a, b, s, d, of_s, of_d, lessthan);
 	//apply test inputs
 	initial begin
-		a = 0;		b = 0; 		cin = 0; 	#10;
-		a = 20;  	b = 21;			    		#10;
-		a = 65534;  b = 1; 		cin = 1; 	#10;
-						b = 2;						#10;
-		a = 65535;	b = 65535;					#10;
-		a = 387;		b = 1234;	cin = 0;		#10;
-		a = 10;		b = 54; 						#10;
-		a = 29084;  b = 2090;	cin = 1;		#10;
-						b = 10000;					#10;
-		a = 16;		b = 17;						#10;
+		a = 25000;		b = -20000; 		#10;
+		a = -1000;  	b = 2000;			    		#10;
+		a = 8000;  b = 1000; 		#10;
+		a = -25000		b = -20000;						#10;
+		a = 10000;	b = -500;					#10;
+		a = -25000;		b = 10000;			#10;
+		a = 10000;		b = 30000; 						#10;
+		a = -1000;  b = -2000;		#10;
 	end
 	
 endmodule
