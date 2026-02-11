@@ -3,7 +3,7 @@ module adder(
     input logic a,b,cin,
     output logic sum,cout);
 
-    assign {cout,s} = a+b+cin;
+    assign {cout,sum} = a+b+cin;
 endmodule
 
 module subtractor(
