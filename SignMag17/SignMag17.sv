@@ -8,8 +8,8 @@ endmodule
 
 module subtractor(
     input logic [15:0] a,b,
-    output logic [15:0] diff,
-    input logic add,
+	output logic [15:0] add,
+    input logic diff,
     output logic OF);
 
     logic addnot;
@@ -228,3 +228,4 @@ assign OF_D = OF;
 assign S = {SnSum,MSum};
 assign OF_S = Cout;
 endmodule
+
