@@ -19,7 +19,7 @@ module testbench();
 		A_S = 1; a_mag = 8520; B_S = 0; b_mag = 12500; #10; //5
 		A_S = 1; a_mag = 48500; B_S = 0; b_mag = 32500; #10; //6
 		A_S = 1; a_mag = 38500; B_S = 1; b_mag = 42500; #10; //7
-		A_S = 1; a_mag = 20300; B_S = 1; b_mag = 12500; #10; //8
+		A_S = 1; a_mag = 20000; B_S = 1; b_mag = 12500; #10; //8
 	end
 	
 endmodule
