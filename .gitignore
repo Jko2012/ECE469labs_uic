@@ -5,12 +5,12 @@
 *.qmsg
 *.hdb
 *.sci
-/cla16/ece469_labs
-/cla16/db
-/cla16/output_files
+*/ece469_labs
+*/db
+*/output_files
 *.mti
 *.mpf
 *.qpf
 *.qsf
-/cla16/incremental_db
-/cla16/simulation
+*/incremental_db
+*/simulation
