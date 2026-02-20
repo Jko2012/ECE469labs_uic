@@ -9,9 +9,9 @@ module alu(
 	
 	assign BB = F[2] ? ~B : B;
 	assign aluAND = A & BB;
-	assign aluOR = A ^ BB;
+	assign aluOR = A | BB;
 	assign aluSUM = A + BB + F[2];
-	assign aluZSUM = {1'b0, aluSUM[30:0]};
+	assign aluZSUM = {31'b0, aluSUM[31]};
 	
 	always_comb
 	begin
@@ -23,9 +23,9 @@ module alu(
 			default: ;
 		endcase
 
-		zero = 1'b1;
+		zero = 1'b0;
 		if (Y == 32'd0) begin
-			zero = 1'b0;
+			zero = 1'b1;
 		end
 	end
 	
