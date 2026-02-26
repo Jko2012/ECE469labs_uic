@@ -30,7 +30,7 @@ module alu(
 		end
 
 		OF = 1'b0;
-		if (F == 3'b010 || F == 3'110) begin
+		if (F == 3'b010 || F == 3'b110) begin
 			OF = overflow;
 		end
 	end
