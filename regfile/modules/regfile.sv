@@ -6,6 +6,8 @@ module regfile(
 	logic [3:0] regs[7:0];
 	logic [3:0] tmp;
 	
+	assign tmp = regs[x];
+
 	always_ff@(posedge clk)
 	begin
 		if (init) begin
@@ -19,7 +21,6 @@ module regfile(
 			regs[7] <= 4'd7;
 		end
 		else if (swapnow) begin
-			tmp <= regs[x];
 			regs[x] <= regs[y];
 			regs[y] <= tmp;
 		end
