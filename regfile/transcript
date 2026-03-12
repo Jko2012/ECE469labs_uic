@@ -1,0 +1,23 @@
+# Compile of regfile.sv was successful.
+# Compile of testbench.sv was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -gui ece469_labs.testbench
+# vsim -gui ece469_labs.testbench 
+# Start time: 20:48:30 on Mar 11,2026
+# Loading sv_std.std
+# Loading ece469_labs.testbench
+# Loading ece469_labs.regfile
+add wave -position insertpoint  \
+sim:/testbench/clk \
+sim:/testbench/init \
+sim:/testbench/swapnow \
+sim:/testbench/x \
+sim:/testbench/y \
+sim:/testbench/r
+run
+run -continue
+run
+run
+run
+# End time: 20:53:11 on Mar 11,2026, Elapsed time: 0:04:41
+# Errors: 0, Warnings: 7
