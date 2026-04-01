@@ -62,3 +62,29 @@ module mux2 #(parameter WIDTH = 8)
 
   assign y = s ? d1 : d0; 
 endmodule
+
+
+module adderALU(
+  input logic [31:0] a, b,
+  input logic cin,
+  output logic [31:0]S,
+  output logic cout);
+
+  assign {cout, S} = a + b + cin;
+endmodule //adder
+
+
+module alu(
+  input logic [31:0] a, b,
+  input logic [2:0] f,
+  output logic [31:0] y,
+  output logic zero);
+  logic [31:0] S, BB;
+  logic cout;
+
+  assign BB = f[2] ? ~b : b;
+  adderALU add1(a, BB, f[2], S, cout);
+  assign y = f[1] ? (f[0] ? {31'b0, (a[31] ^ b[31]) ? a[31] : S[31]} : S) : (f[0] ? a | BB : a & BB);
+  assign zero = (y == 32'h0) ? 1'b1 : 1'b0;
+
+endmodule //ALU
