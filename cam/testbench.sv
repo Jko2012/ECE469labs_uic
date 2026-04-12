@@ -13,12 +13,13 @@ module testbench ();
 
     initial begin
         init = 1; #13; init = 0; #13;
-        D_lookup = 4'b1101; setD = 0; #10; 
-        D_lookup = 4'b1011; setD = 1; newD = 1110; #10;
+        D_lookup = 4'b1011; setD = 0; #10; 
+        D_lookup = 4'b1011; setD = 1; newD = 4'b1110; #10;
         D_lookup = 4'b1110; setD = 0; #10; 
         D_lookup = 4'b1011; setD = 0; #10; 
-        D_lookup = 4'b1110; setD = 1; newD = 1010; #10;
-        D_lookup = 4'b1101; setD = 0; #10; 
+        D_lookup = 4'b1110; setD = 1; newD = 4'b1010; #10;
+        D_lookup = 4'b1010; setD = 0; #10; 
+        $stop;
     end
 
 
