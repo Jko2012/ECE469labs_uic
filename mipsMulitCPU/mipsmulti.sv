@@ -25,10 +25,13 @@ module controller(  input logic clk, reset,
     // Main Decoder and ALU Decoder subunits.
     maindec md(clk, reset, op, pcwrite, memwrite, irwrite, regwrite, alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);
     aludec ad(funct, aluop, alucontrol);
+
     // ADD CODE HERE
     // Add combinational logic (i.e. an assign statement)
     // to produce the PCEn signal (pcen) from the branch,
     // zero, and pcwrite signals
+    assign pcen = (pcwrite | (branch & zero));
+
 endmodule
 
 module maindec( input logic clk, reset,
@@ -69,8 +72,8 @@ module maindec( input logic clk, reset,
     // ADD CODE HERE
     // Finish entering the next state logic below. The first
     // two states, FETCH and DECODE, have been completed for you.
+
     // next state logic
-    
     always_comb begin
         case(state)
             FETCH: nextstate = DECODE;
@@ -82,18 +85,21 @@ module maindec( input logic clk, reset,
                 ADDI: nextstate = ADDIEX;
                 J: nextstate = JEX;
                 default: nextstate = 4'bx; // should never happen
-                endcase
+            endcase
             // Add code here
-            MEMADR:
-            MEMRD:
-            MEMWB:
-            MEMWR:
-            RTYPEEX:
-            RTYPEWB:
-            BEQEX:
-            ADDIEX:
-            ADDIWB:
-            JEX:
+            MEMADR: case(op)
+                LW: nextstate = MEMRD;
+                SW: nextstate = MEMWR;
+            endcase
+            MEMRD: nextstate = MEMWB;
+            MEMWB: nextstate = FETCH;
+            MEMWR: nextstate = FETCH;
+            RTYPEEX: nextstate = RTYPEWB;
+            RTYPEWB: nextstate = FETCH;
+            BEQEX: nextstate = FETCH;
+            ADDIEX: nextstate = ADDIWB;
+            ADDIWB: nextstate = FETCH;
+            JEX: nextstate = FETCH;
             default: nextstate = 4'bx; // should never happen
         endcase
     end
@@ -110,6 +116,16 @@ module maindec( input logic clk, reset,
             FETCH: controls = 15'h5010;
             DECODE: controls = 15'h0030;
             // your code goes here
+            MEMADR: controls = 15'h0420;
+            MEMRD: controls = 15'h0100;
+            MEMWB: controls = 15'h0880;
+            MEMWR: controls = 15'h2100;
+            RTYPEEX: controls = 15'h0402;
+            RTYPEWB: controls = 15'h0840;
+            BEQEX: controls = 15'h0605;
+            ADDIEX: controls = 15'h0420;
+            ADDIWB: controls = 15'h0800;
+            JEX:  controls = 15'h4008;
             default: controls = 15'hxxxx; // should never happen
         endcase
     end
@@ -228,7 +244,7 @@ module top( input logic clk, reset,
 
     // microprocessor (control & datapath)
     mips mips(clk, reset, adr, writedata, memwrite, readdata);
-    
+
     // memory
     mem mem(clk, memwrite, adr, writedata, readdata);
 
