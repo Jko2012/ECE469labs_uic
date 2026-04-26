@@ -142,7 +142,20 @@ module aludec(  input logic [5:0] funct,
     // module.
 
     // Remember that you may also reuse any code from previous labs.
-
+    always_comb begin
+        case(aluop)
+            2'b00: alucontrol = 3'b010;  // add
+            2'b01: alucontrol = 3'b110;  // sub
+            default: case(funct)          // RTYPE
+                6'b100000: alucontrol = 3'b010; // ADD
+                6'b100010: alucontrol = 3'b110; // SUB
+                6'b100100: alucontrol = 3'b000; // AND
+                6'b100101: alucontrol = 3'b001; // OR
+                6'b101010: alucontrol = 3'b111; // SLT
+                default:   alucontrol = 3'bxxx; // ???
+            endcase
+        endcase
+    end
 endmodule
 
 
@@ -189,6 +202,35 @@ module datapath(input logic clk, reset,
     // ADD CODE HERE
 
     // datapath
+
+    //pc & address logic
+    flopenr #(32)   pcreg(clk, reset, pcen, pcnext, pc);
+    mux2 #(32)      pcmux(pc, aluout, iord, adr);
+
+    //regfile logic
+    flopenr #(32)   instreg(clk, reset, irwrite, readdata, instr);
+    flopr #(32)     datareg(clk, reset, readdata, data);
+    mux2 #(5)       regmux(instr[20:16], instr[15:11], regdst, writereg);
+    mux2 #(32)      wdmux(aluout, data, memtoreg, wd3);
+
+    //regfile
+    regfile         rf(clk, regwrite, instr[25:21], instr[20:16], writereg, wd3, rd1, rd2);
+    flopr #(32)     rd1reg(clk, reset, rd1, a);
+    flopr #(32)     rd2reg(clk, reset, rd2, writedata);
+
+    //alu logic
+    mux2 #(32)      srcamux(pc, a, alusrca, srca);
+
+    signext         immext(instr[15:0], signimm);
+    sl2             immsl(signimm, signimmsh);
+    mux4 #(32)      srcbmux(writedata, 32'd4, signimm, signimmsh, alusrcb, srcb);
+
+    //alu
+    alu             alu(srca, srcb, alucontrol, aluresult, zero);
+    flopr #(32)     alureg(clk, reset, aluresult, aluout);
+
+    //pcnext logic
+    mux3 #(32)      pcsrcmux(aluresult, aluout, {pc[31:28], instr[25:0], 2'b00}, pcsrc, pcnext);
 
 endmodule
 
