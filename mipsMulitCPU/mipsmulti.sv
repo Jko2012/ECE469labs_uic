@@ -90,6 +90,7 @@ module maindec( input logic clk, reset,
             MEMADR: case(op)
                 LW: nextstate = MEMRD;
                 SW: nextstate = MEMWR;
+                default: nextstate = 4'bx;
             endcase
             MEMRD: nextstate = MEMWB;
             MEMWB: nextstate = FETCH;
