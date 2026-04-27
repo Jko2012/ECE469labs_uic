@@ -5,7 +5,7 @@ module controllertest();
     logic [1:0] alusrcb, pcsrc;
     logic [2:0] alucontrol;
     logic [5:0] op, funct;
-    logic [31:0] vectornum, errors;
+    logic [31:0] vectornum, errors, test;
     logic [31:0] testvectors [100:0];
 
     controller dut(clk, reset, op, funct, zero, pcen, memwrite, irwrite, regwrite, alusrca, iord, memtoreg, regdst, alusrcb, pcsrc, alucontrol);
@@ -24,13 +24,14 @@ module controllertest();
     always @(negedge clk) begin
         op = testvectors[vectornum][31:26];
         funct = testvectors[vectornum][5:0];
-        zero = 1'b0;
+        test = testvectors[vectornum];
+        zero = 1'b1;
     end
 
     always @(posedge clk) begin
-        if (~reset) begin
+        if (~reset & (dut.md.nextstate == 4'b0000)) begin
             vectornum = vectornum + 1;
-            if (testvectors[vectornum] === 31'bx) begin
+            if (testvectors[vectornum] === 32'bx) begin
                 $stop;
             end
         end
