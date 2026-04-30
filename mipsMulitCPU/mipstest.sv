@@ -34,7 +34,7 @@ module testbench();
                 $stop;
             end
 
-            if ((control_exp != dut.mips.c.md.controls) || (srca_exp != dut.mips.dp.srca) || (srcb_exp != dut.mips.dp.srcb)) begin
+            if ((control_exp != dut.mips.c.md.controls) || (srca_exp != dut.mips.dp.srca) || (srcb_exp != dut.mips.dp.srcb) || (aluresult_exp != dut.mips.dp.aluresult)) begin
                 errors = errors + 1;
             end
 
